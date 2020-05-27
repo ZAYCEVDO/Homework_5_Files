@@ -3,6 +3,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using WindowsFormsApp1.Controls;
 
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
+
 namespace WindowsFormsApp1
 {
 	/// <summary> Контрол видеопроигрывателя. </summary>
@@ -34,8 +37,21 @@ namespace WindowsFormsApp1
 
 			_playerControler.ChangeImage += OnChangeImage;
 
-			_opnFileDialog.Filter = "Image|*.png; *.jpg|Video|*.mp4; *.avi;";
+			_playerControler.ChangeFrame += OnChangeFrame;
 
+			_opnFileDialog.Filter = "Image|*.png; *.jpg|Video|*.mp4; *.avi;";
+		}
+
+		private void OnChangeFrame(object sender, Mat image)
+		{
+			using(var img = new Mat())
+			{
+				Cv2.Resize(image, img, new OpenCvSharp.Size(_picVideo.Width, _picVideo.Height), 0, 0, InterpolationFlags.Cubic);
+				//_picVideo.ImageIpl = image;
+				//_picVideo.Refresh();
+				_picVideo.Image = BitmapConverter.ToBitmap(img);
+				_picVideo.Refresh();
+			}
 		}
 
 		#endregion
@@ -56,7 +72,7 @@ namespace WindowsFormsApp1
 			}
 			else if(_opnFileDialog.FilterIndex == (int)FilterType.Video)
 			{
-
+				_playerControler.OpenVideo(_opnFileDialog.FileName);
 			}
 
 		}
@@ -74,6 +90,15 @@ namespace WindowsFormsApp1
 
 		/// <summary> Вызывается при нажатие на кнопку предыдущая картинка. </summary>
 		private void OnPreviousClick(object sender, EventArgs e) => _playerControler.PreviousImage();
+
+		/// <summary> Вызывается при нажатие на кнопку start. </summary>
+		private void OnStartClick(object sender, EventArgs e) => _playerControler.PlayVideo();
+
+		/// <summary> Вызывается при нажатие на кнопку pause. </summary>
+		private void OnPauseClick(object sender, EventArgs e) => _playerControler.PauseVideo();
+
+		/// <summary> Вызывается при нажатие на кнопку stop. </summary>
+		private void OnStopClick(object sender, EventArgs e) => _playerControler.StopVideo();
 		#endregion
 	}
 }

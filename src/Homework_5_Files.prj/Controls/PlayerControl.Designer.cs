@@ -65,6 +65,7 @@
 			this._picVideo.Location = new System.Drawing.Point(0, -3);
 			this._picVideo.Name = "_picVideo";
 			this._picVideo.Size = new System.Drawing.Size(626, 354);
+			this._picVideo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this._picVideo.TabIndex = 1;
 			this._picVideo.TabStop = false;
 			// 
@@ -119,6 +120,7 @@
 			this._btnStop.TabIndex = 11;
 			this._btnStop.Text = "Stop";
 			this._btnStop.UseVisualStyleBackColor = false;
+			this._btnStop.Click += new System.EventHandler(this.OnStopClick);
 			// 
 			// _btnPause
 			// 
@@ -130,6 +132,7 @@
 			this._btnPause.TabIndex = 10;
 			this._btnPause.Text = "Pause";
 			this._btnPause.UseVisualStyleBackColor = false;
+			this._btnPause.Click += new System.EventHandler(this.OnPauseClick);
 			// 
 			// _btnStart
 			// 
@@ -141,6 +144,7 @@
 			this._btnStart.TabIndex = 9;
 			this._btnStart.Text = "Start";
 			this._btnStart.UseVisualStyleBackColor = false;
+			this._btnStart.Click += new System.EventHandler(this.OnStartClick);
 			// 
 			// _btnOpenFolder
 			// 

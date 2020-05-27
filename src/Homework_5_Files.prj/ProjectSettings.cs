@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.IO;
+using System.Xml.Linq;
 using WindowsFormsApp1.Controls;
 
 namespace WindowsFormsApp1
@@ -30,7 +31,10 @@ namespace WindowsFormsApp1
 		{
 			_logControler = logControler;
 
-			LoadXML();
+			if (File.Exists(_pathXML))
+			{
+				LoadXML();
+			}
 		}
 
 		#endregion
